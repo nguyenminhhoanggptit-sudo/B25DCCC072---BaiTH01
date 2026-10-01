@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Giới thiệu bản thân | Nguyễn Minh Hoàng</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="#home" class="logo">Nguyễn Minh Hoàng</a>
+    <button id="menu-toggle" class="icon-btn menu-btn" aria-label="Mở menu" aria-expanded="false">☰</button>
+    <nav id="nav" class="nav">
+      <a href="#about">Giới thiệu</a>
+      <a href="#skills">Kỹ năng</a>
+      <a href="#projects">Dự án</a>
+      <a href="#contact">Liên hệ</a>
+    </nav>
+    <button id="theme-toggle" class="icon-btn" aria-label="Đổi giao diện sáng/tối">🌙</button>
+  </header>
+
+  <main>
+    <section id="home" class="hero reveal">
+      <h1>Xin chào, tôi là <span>Nguyễn Minh Hoàng</span></h1>
+      <p>Sinh viên Công nghệ thông tin định hướng ứng dụng tại Học viện Công nghệ Bưu chính Viễn thông.</p>
+      <a href="#projects" class="btn">Xem dự án</a>
+      <svg class="waves" viewBox="0 0 4800 120" preserveAspectRatio="none" aria-hidden="true">
+        <path class="wave-back" d="M0 70 Q300 20 600 70 T1200 70 T1800 70 T2400 70 T3000 70 T3600 70 T4200 70 T4800 70 V120 H0Z"/>
+        <path class="wave-front" d="M0 90 Q300 50 600 90 T1200 90 T1800 90 T2400 90 T3000 90 T3600 90 T4200 90 T4800 90 V120 H0Z"/>
+      </svg>
+    </section>
+
+    <section id="about" class="section reveal">
+      <h2>Giới thiệu</h2>
+      <p>Tôi tên là Nguyễn Minh Hoàng, sinh ngày 24/08/2007, quê quán ở Bắc Ninh. Hiện tại gia đình tôi đang sinh sống và làm việc tại Lạng Sơn.</p>
+      <p>Tôi đang sinh sống và học tập tại Học viện Công nghệ Bưu chính Viễn thông cơ sở Hoàng Quốc Việt, Hà Nội. Tôi học ngành Công nghệ thông tin định hướng ứng dụng.</p>
+    </section>
+    
+    <section id="skills" class="section reveal">
+      <h2>Kỹ năng</h2>
+      <p>Tôi biết sử dụng các ngôn ngữ cơ bản sau:</p>
+      <ul class="skill-list">
+        <li>SQL</li>
+        <li>Python</li>
+        <li>HTML</li>
+        <li>CSS</li>
+        <li>JavaScript</li>
+      </ul>
+    </section>
+
+
+    <section id="projects" class="section reveal">
+      <h2>Dự án</h2>
+      <input type="search" id="project-search" placeholder="Tìm theo tên hoặc tag..." aria-label="Tìm dự án">
+      <div class="tags" id="tag-filters">
+        <button class="tag active" data-tag="all">Tất cả</button>
+        <button class="tag" data-tag="html">HTML</button>
+        <button class="tag" data-tag="css">CSS</button>
+        <button class="tag" data-tag="js">JS</button>
+        <button class="tag" data-tag="python">Python</button>
+        <button class="tag" data-tag="sql">SQL</button>
+      </div>
+      <div class="project-grid" id="project-grid">
+        <article class="card" data-tags="html css">
+          <h3>Dự án 1</h3>
+          <p>Mô tả ngắn về dự án (công nghệ sử dụng, chức năng chính).</p>
+        </article>
+        <article class="card" data-tags="python sql">
+          <h3>Dự án 2</h3>
+          <p>Mô tả ngắn về dự án (công nghệ sử dụng, chức năng chính).</p>
+        </article>
+        <article class="card" data-tags="html css js">
+          <h3>Dự án 3</h3>
+          <p>Mô tả ngắn về dự án (công nghệ sử dụng, chức năng chính).</p>
+        </article>
+      </div>
+      <p id="no-result" hidden>Không tìm thấy dự án phù hợp.</p>
+    </section>
+
+    <!-- ===== FORM LIÊN HỆ ===== -->
+    <section id="contact" class="section reveal">
+      <h2>Liên hệ</h2>
+      <form id="contact-form" novalidate>
+        <label>Họ tên
+          <input type="text" id="name" name="name">
+          <small class="error"></small>
+        </label>
+        <label>Email
+          <input type="email" id="email" name="email">
+          <small class="error"></small>
+        </label>
+        <label>Số điện thoại
+          <input type="tel" id="phone" name="phone">
+          <small class="error"></small>
+        </label>
+        <label>Nội dung
+          <textarea id="message" name="message" rows="5" maxlength="300"></textarea>
+          <small class="counter"><span id="char-count">0</span>/300</small>
+          <small class="error"></small>
+        </label>
+        <button type="submit" class="btn">Gửi</button>
+        <p id="form-status" role="status"></p>
+      </form>
+    </section>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <p>&copy; <span id="year"></span> Nguyễn Minh Hoàng. Mã sinh viên: XXXXXXXX</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
