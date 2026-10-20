@@ -1,5 +1,4 @@
-"use strict";
-
+/*"use strict";
 
 const menuBtn = document.getElementById("menu-toggle");
 const nav = document.getElementById("nav");
@@ -9,13 +8,12 @@ menuBtn.addEventListener("click", () => {
   menuBtn.setAttribute("aria-expanded", open);
 });
 
-nav.querySelectorAll("a").forEach(a =>
+nav.querySelectorAll("a").forEach((a) =>
   a.addEventListener("click", () => {
     nav.classList.remove("open");
     menuBtn.setAttribute("aria-expanded", "false");
-  })
+  }),
 );
-
 
 const themeBtn = document.getElementById("theme-toggle");
 const root = document.documentElement;
@@ -34,34 +32,39 @@ themeBtn.addEventListener("click", () => {
   localStorage.setItem("theme", next);
 });
 
-/* ===== 3. Smooth scroll: đã có trong CSS (scroll-behavior).
-        Thêm scroll-spy: tô sáng link menu theo section đang xem ===== */
 const sections = document.querySelectorAll("main section[id]");
 const navLinks = document.querySelectorAll(".nav a");
 
-const spy = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      navLinks.forEach(l =>
-        l.classList.toggle("active", l.getAttribute("href") === "#" + entry.target.id)
-      );
-    }
-  });
-}, { rootMargin: "-40% 0px -55% 0px" });
-sections.forEach(s => spy.observe(s));
+const spy = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        navLinks.forEach((l) =>
+          l.classList.toggle(
+            "active",
+            l.getAttribute("href") === "#" + entry.target.id,
+          ),
+        );
+      }
+    });
+  },
+  { rootMargin: "-40% 0px -55% 0px" },
+);
+sections.forEach((s) => spy.observe(s));
 
-/* ===== 4. Scroll reveal ===== */
-const revealObs = new IntersectionObserver((entries, obs) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add("visible");
-      obs.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.15 });
-document.querySelectorAll(".reveal").forEach(el => revealObs.observe(el));
+const revealObs = new IntersectionObserver(
+  (entries, obs) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        obs.unobserve(entry.target);
+      }
+    });
+  },
+  { threshold: 0.15 },
+);
+document.querySelectorAll(".reveal").forEach((el) => revealObs.observe(el));
 
-/* ===== 5. Lọc / tìm kiếm dự án theo từ khóa và tag ===== */
 const searchInput = document.getElementById("project-search");
 const tagButtons = document.querySelectorAll("#tag-filters .tag");
 const cards = document.querySelectorAll("#project-grid .card");
@@ -71,10 +74,13 @@ let activeTag = "all";
 function filterProjects() {
   const keyword = searchInput.value.trim().toLowerCase();
   let visible = 0;
-  cards.forEach(card => {
+  cards.forEach((card) => {
     const text = card.textContent.toLowerCase();
     const tags = card.dataset.tags.split(" ");
-    const matchKeyword = !keyword || text.includes(keyword) || tags.some(t => t.includes(keyword));
+    const matchKeyword =
+      !keyword ||
+      text.includes(keyword) ||
+      tags.some((t) => t.includes(keyword));
     const matchTag = activeTag === "all" || tags.includes(activeTag);
     const show = matchKeyword && matchTag;
     card.hidden = !show;
@@ -83,48 +89,48 @@ function filterProjects() {
   noResult.hidden = visible > 0;
 }
 searchInput.addEventListener("input", filterProjects);
-tagButtons.forEach(btn =>
+tagButtons.forEach((btn) =>
   btn.addEventListener("click", () => {
-    tagButtons.forEach(b => b.classList.remove("active"));
+    tagButtons.forEach((b) => b.classList.remove("active"));
     btn.classList.add("active");
     activeTag = btn.dataset.tag;
     filterProjects();
-  })
+  }),
 );
 
-/* ===== 6. Đếm ký tự trong ô nội dung ===== */
 const message = document.getElementById("message");
 const charCount = document.getElementById("char-count");
 message.addEventListener("input", () => {
   charCount.textContent = message.value.length;
 });
 
-/* ===== 7. Validate form (nhiều điều kiện) ===== */
 const form = document.getElementById("contact-form");
 const status = document.getElementById("form-status");
 
 const rules = {
-  name: v => {
+  name: (v) => {
     if (!v.trim()) return "Vui lòng nhập họ tên.";
     if (v.trim().length < 2) return "Họ tên tối thiểu 2 ký tự.";
     if (/\d/.test(v)) return "Họ tên không được chứa số.";
     return "";
   },
-  email: v => {
+  email: (v) => {
     if (!v.trim()) return "Vui lòng nhập email.";
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) return "Email không đúng định dạng.";
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v))
+      return "Email không đúng định dạng.";
     return "";
   },
-  phone: v => {
+  phone: (v) => {
     if (!v.trim()) return "Vui lòng nhập số điện thoại.";
-    if (!/^(0|\+84)\d{9}$/.test(v.replace(/\s/g, ""))) return "Số điện thoại không hợp lệ (VD: 0912345678).";
+    if (!/^(0|\+84)\d{9}$/.test(v.replace(/\s/g, "")))
+      return "Số điện thoại không hợp lệ (VD: 0912345678).";
     return "";
   },
-  message: v => {
+  message: (v) => {
     if (!v.trim()) return "Vui lòng nhập nội dung.";
     if (v.trim().length < 10) return "Nội dung tối thiểu 10 ký tự.";
     return "";
-  }
+  },
 };
 
 function validateField(input) {
@@ -135,11 +141,13 @@ function validateField(input) {
   return !msg;
 }
 
-form.querySelectorAll("input, textarea").forEach(input =>
-  input.addEventListener("blur", () => validateField(input))
-);
+form
+  .querySelectorAll("input, textarea")
+  .forEach((input) =>
+    input.addEventListener("blur", () => validateField(input)),
+  );
 
-form.addEventListener("submit", e => {
+form.addEventListener("submit", (e) => {
   e.preventDefault();
   const fields = [...form.querySelectorAll("input, textarea")];
   const allValid = fields.map(validateField).every(Boolean); // validate hết, không dừng sớm
@@ -152,6 +160,4 @@ form.addEventListener("submit", e => {
     form.querySelector(".invalid")?.focus();
   }
 });
-
-/* ===== 8. Hiển thị năm hiện tại ở footer ===== */
-document.getElementById("year").textContent = new Date().getFullYear();
+document.getElementById("year").textContent = new Date().getFullYear();*/
